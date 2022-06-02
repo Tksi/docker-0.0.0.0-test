@@ -35,3 +35,9 @@ curl -sv localhost:8000 # server127
 
 8000(server0) -> ok  
 8080(server127) -> 不通
+
+# まとめ
+
+127.0.0.1 -> lo(ループバックインターフェース)で listen  
+0.0.0.0 -> lo 含む全インターフェースで listen  
+eth0 で割り当てられた ip -> eth0 のみで listen(curl localhost は不通)
