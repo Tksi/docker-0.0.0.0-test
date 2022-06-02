@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  server0:
+    container_name: server0
+    environment:
+      - IP=0.0.0.0
+      - PORT=8080
+    ports:
+      - 8080:8080
+    image: node:17-alpine
+    volumes:
+      - ./:/usr/src
+    working_dir: /usr/src
+    command: sh -c "apk add curl && npm install && node index.js"
+
+  server127:
+    container_name: server127
+    environment:
+      - IP=127.0.0.1
+      - PORT=8000
+    ports:
+      - 8000:8000
+    image: node:17-alpine
+    volumes:
+      - ./:/usr/src
+    working_dir: /usr/src
+    command: sh -c "apk add curl && npm install && node index.js"
+
+  client:
+    container_name: client
+    image: alpine/curl
+    command: sh -c "tail -f /dev/null"
+    depends_on:
+      - server0
+      - server127
